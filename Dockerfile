@@ -5,7 +5,7 @@ ARG RUN_IMAGE_TAG="7.0-alpine"
 # build and publish
 #########################################################################
 
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:$BUILD_IMAGE_TAG AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
 
 ARG TARGETARCH
@@ -30,15 +30,15 @@ RUN dotnet publish "./Service.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p
 # run
 #########################################################################
 
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:$RUN_IMAGE_TAG AS base
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS base
 # Non-root user that will run the service
 ARG USER=km
-RUN \
+RUN mkdir -p /app && \
     # Create user
-    #Debian: useradd --create-home --user-group $USER --shell /bin/bash && \
+    # useradd --create-home --user-group $USER --shell /bin/bash && \
     adduser -D -h /app -s /bin/sh $USER && \
     # Allow user to access the build
-    chown -R $USER.$USER /app
+    chown -R $USER:$USER /app
 
 # Define current user
 USER $USER
@@ -52,11 +52,11 @@ EXPOSE 9001
 
 FROM base AS final
 
-MAINTAINER Devis Lucato "https://github.com/dluc"
-LABEL org.opencontainers.image.authors="Devis Lucato, https://github.com/dluc"
 WORKDIR /app
 
-COPY --from=publish --chown=km:km --chmod=0550  /app/publish .
+RUN mkdir -p /app/publish
+COPY --from=publish --chown=km:km /app/publish .
+RUN chmod 0550 /app/publish
 
 # Define executable
 ENTRYPOINT ["dotnet", "Microsoft.KernelMemory.ServiceAssembly.dll"]
