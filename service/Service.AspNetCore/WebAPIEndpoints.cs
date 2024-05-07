@@ -37,7 +37,7 @@ public static class WebAPIEndpoints
         RouteGroupBuilder group = builder.MapGroup(apiPrefix);
 
         // File upload endpoint
-        var route = group.MapPost(Constants.HttpUploadEndpoint, async Task<IResult> (
+        var route = group.MapPost(Constants.HttpUploadEndpoint, async Task<IResult>(
                 HttpRequest request,
                 IKernelMemory service,
                 ILogger<KernelMemoryWebAPI> log,
@@ -97,7 +97,7 @@ public static class WebAPIEndpoints
 
         // List of indexes endpoint
         var route = group.MapGet(Constants.HttpIndexesEndpoint,
-                async Task<IResult> (
+                async Task<IResult>(
                     IKernelMemory service,
                     ILogger<KernelMemoryWebAPI> log,
                     CancellationToken cancellationToken) =>
@@ -129,7 +129,7 @@ public static class WebAPIEndpoints
 
         // Delete index endpoint
         var route = group.MapDelete(Constants.HttpIndexesEndpoint,
-                async Task<IResult> (
+                async Task<IResult>(
                     [FromQuery(Name = Constants.WebServiceIndexField)]
                     string? index,
                     IKernelMemory service,
@@ -161,7 +161,7 @@ public static class WebAPIEndpoints
 
         // Delete document endpoint
         var route = group.MapDelete(Constants.HttpDocumentsEndpoint,
-                async Task<IResult> (
+                async Task<IResult>(
                     [FromQuery(Name = Constants.WebServiceIndexField)]
                     string? index,
                     [FromQuery(Name = Constants.WebServiceDocumentIdField)]
@@ -197,7 +197,7 @@ public static class WebAPIEndpoints
 
         // Ask endpoint
         var route = group.MapPost(Constants.HttpAskEndpoint,
-                async Task<IResult> (
+                async Task<IResult>(
                     MemoryQuery query,
                     IKernelMemory service,
                     ILogger<KernelMemoryWebAPI> log,
@@ -227,7 +227,7 @@ public static class WebAPIEndpoints
 
         // Search endpoint
         var route = group.MapPost(Constants.HttpSearchEndpoint,
-                async Task<IResult> (
+                async Task<IResult>(
                     SearchQuery query,
                     IKernelMemory service,
                     ILogger<KernelMemoryWebAPI> log,
@@ -258,7 +258,7 @@ public static class WebAPIEndpoints
 
         // Document status endpoint
         var route = group.MapGet(Constants.HttpUploadStatusEndpoint,
-                async Task<IResult> (
+                async Task<IResult>(
                     [FromQuery(Name = Constants.WebServiceIndexField)]
                     string? index,
                     [FromQuery(Name = Constants.WebServiceDocumentIdField)]

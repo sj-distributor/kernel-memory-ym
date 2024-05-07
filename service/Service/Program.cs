@@ -97,7 +97,6 @@ internal static class Program
                 memoryType = ((memory is MemoryServerless) ? "Sync - " : "Async - ") + memory.GetType().FullName;
             });
 
-
         // Build .NET web app as usual
         WebApplication app = appBuilder.Build();
 
