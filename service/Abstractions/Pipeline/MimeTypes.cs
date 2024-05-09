@@ -1,4 +1,5 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
+// ReSharper disable InconsistentNaming
 
 using System;
 using System.Collections.Generic;

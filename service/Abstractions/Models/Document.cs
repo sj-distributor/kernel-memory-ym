@@ -58,7 +58,7 @@ public class Document
     /// <summary>
     /// Add a file to the internal collection. If the file path is already in the list, the call is ignored.
     /// If a file with the same name (ignoring the path) already exists, the system generates a new unique
-    /// file name, using the path string, anonymizing the path with a SHA algorithm.
+    /// file name, using the path string, anonymization the path with a SHA algorithm.
     /// </summary>
     /// <param name="filePath">Full file path</param>
     public Document AddFile(string filePath)
@@ -70,7 +70,7 @@ public class Document
     /// <summary>
     /// Add a list of files to the internal collection. If any of file paths is already in the list, such file is ignored.
     /// If a file with the same name (ignoring the path) already exists, the system generates a new unique
-    /// file name, using the path string, anonymizing the path with a SHA algorithm.
+    /// file name, using the path string, anonymization the path with a SHA algorithm.
     /// </summary>
     /// <param name="filePaths">List of paths</param>
     public Document AddFiles(IEnumerable<string>? filePaths)
@@ -81,7 +81,7 @@ public class Document
     /// <summary>
     /// Add a list of files to the internal collection. If any of file paths is already in the list, such file is ignored.
     /// If a file with the same name (ignoring the path) already exists, the system generates a new unique
-    /// file name, using the path string, anonymizing the path with a SHA algorithm.
+    /// file name, using the path string, anonymization the path with a SHA algorithm.
     /// </summary>
     /// <param name="filePaths">List of paths</param>
     public Document AddFiles(string[]? filePaths)
