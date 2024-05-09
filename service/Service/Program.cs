@@ -3,6 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Correlate.DependencyInjection;
+using Destructurama;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +18,8 @@ using Microsoft.KernelMemory.MemoryStorage;
 using Microsoft.KernelMemory.Service.AspNetCore;
 using Microsoft.KernelMemory.Pipeline;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
+using Serilog;
 
 // KM Configuration:
 //
@@ -97,8 +101,23 @@ internal static class Program
                 memoryType = ((memory is MemoryServerless) ? "Sync - " : "Async - ") + memory.GetType().FullName;
             });
 
+        appBuilder.Services.AddSingleton(Log.Logger);
+        appBuilder.Host.UseSerilog(Log.Logger, dispose: true).ConfigureLogging(l => l.AddSerilog(Log.Logger));
+        appBuilder.Services.AddCorrelate(options => options.RequestHeaders = new[] { "CorrelationId", "X-Correlation-ID", "x-correlation-id" });
+
+        IConfigurationSection serilog = appBuilder.Configuration.GetSection("Serilog").GetSection("Seq");
+        Log.Logger = new LoggerConfiguration()
+            .Destructure.JsonNetTypes()
+            .Enrich.FromLogContext()
+            .Enrich.WithProperty("Application", "KernelMemory")
+            .WriteTo.Console()
+            .WriteTo.Seq(serilog.GetSection("ServerUrl").Value ?? string.Empty, apiKey: serilog.GetSection("ApiKey").Value ?? string.Empty)
+            .CreateLogger();
+
         // Build .NET web app as usual
         WebApplication app = appBuilder.Build();
+
+        app.UseSerilogRequestLogging();
 
         if (config.Service.RunWebService)
         {

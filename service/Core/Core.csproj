@@ -10,8 +10,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.KernelMemory.Abstractions" Condition="'$(SolutionName)' != 'KernelMemoryDev'"/>
-        <ProjectReference Include="..\Abstractions\Abstractions.csproj" Condition="'$(SolutionName)' == 'KernelMemoryDev'"/>
+        <PackageReference Include="Microsoft.KernelMemory.Abstractions" Condition="'$(SolutionName)' != 'KernelMemoryDev'" />
+        <ProjectReference Include="..\Abstractions\Abstractions.csproj" Condition="'$(SolutionName)' == 'KernelMemoryDev'" />
     </ItemGroup>
 
     <ItemGroup>
@@ -22,33 +22,34 @@
         <ProjectReference Include="..\..\extensions\AzureBlobs\AzureBlobs.csproj" />
         <ProjectReference Include="..\..\extensions\AzureOpenAI\AzureOpenAI.csproj" />
         <ProjectReference Include="..\..\extensions\AzureQueues\AzureQueues.csproj" />
-        <ProjectReference Include="..\..\extensions\OpenAI\OpenAI.csproj"/>
+        <ProjectReference Include="..\..\extensions\OpenAI\OpenAI.csproj" />
         <ProjectReference Include="..\..\extensions\Qdrant\Qdrant\Qdrant.csproj" />
         <ProjectReference Include="..\..\extensions\TikToken\TikToken\TikToken.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="ClosedXML"/>
-        <PackageReference Include="DocumentFormat.OpenXml"/>
-        <PackageReference Include="HtmlAgilityPack"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions"/>
-        <PackageReference Include="PdfPig"/>
-        <PackageReference Include="Polly.Core"/>
-        <PackageReference Include="System.Linq.Async"/>
+        <PackageReference Include="ClosedXML" />
+        <PackageReference Include="DocumentFormat.OpenXml" />
+        <PackageReference Include="HtmlAgilityPack" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+        <PackageReference Include="PdfPig" />
+        <PackageReference Include="Polly.Core" />
+        <PackageReference Include="Serilog" Version="2.12.0" />
+        <PackageReference Include="System.Linq.Async" />
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="Prompts\summarize.txt"/>
-        <EmbeddedResource Include="Prompts\answer-with-facts.txt"/>
+        <EmbeddedResource Include="Prompts\summarize.txt" />
+        <EmbeddedResource Include="Prompts\answer-with-facts.txt" />
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="Microsoft.Core.UnitTests"/>
+        <InternalsVisibleTo Include="Microsoft.Core.UnitTests" />
     </ItemGroup>
 
-    <Import Project="../../code-analysis.props"/>
+    <Import Project="../../code-analysis.props" />
 
-    <Import Project="../../nuget-package.props"/>
+    <Import Project="../../nuget-package.props" />
 
     <PropertyGroup>
         <IsPackable>true</IsPackable>
