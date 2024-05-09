@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
 // ReSharper disable RedundantUsingDirective
+
 #pragma warning disable CS0162 // temp
 #pragma warning disable CS1998 // temp
 #pragma warning disable IDE0005 // temp

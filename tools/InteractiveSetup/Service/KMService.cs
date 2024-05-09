@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+// ReSharper disable InconsistentNaming
+
 using System.Collections.Generic;
 using Microsoft.KernelMemory.InteractiveSetup.UI;
 
